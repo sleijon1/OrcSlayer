@@ -24,7 +24,12 @@ public class DataController : MonoBehaviour
 
     public void SubmitNewPlayerScore(int newScore, int levelScore)
     {
-        if(newScore > playerProgress.highscore && levelScore >= playerProgress.levelHighscore)
+        if(levelScore >= playerProgress.levelHighscore)
+        {
+            playerProgress.highscore = newScore;
+            playerProgress.levelHighscore = levelScore;
+            SavePlayerProgress();
+        }else if(levelScore == playerProgress.levelHighscore && newScore > playerProgress.highscore)
         {
             playerProgress.highscore = newScore;
             playerProgress.levelHighscore = levelScore;

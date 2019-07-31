@@ -110,9 +110,6 @@ public class PlayerController : MonoBehaviour
                 Instantiate(swordTwo, swordSpawnTwo.position, swordTwo.transform.rotation);
             }
         }
-
-
-
     }
 
     void FixedUpdate()
@@ -130,7 +127,7 @@ public class PlayerController : MonoBehaviour
            
             
         }
-        body.AddForce(movement * Speed);
+        body.velocity = movement * Speed;
 
     }
 }
