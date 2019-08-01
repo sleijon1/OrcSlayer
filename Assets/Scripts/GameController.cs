@@ -15,12 +15,14 @@ public class GameController : MonoBehaviour
     public Text goldText;
     public Text endGameText;
     public Text advanceLevelText;
+    public RawImage transitionImage;
     private int score;
     private int highscore;
     private bool gameOver;
     public bool levelOne;
     public bool levelTwo;
     public bool levelThree;
+    public int level; 
 
     private DataController dataController;
 
@@ -35,6 +37,8 @@ public class GameController : MonoBehaviour
         {
             Debug.Log("DataController not being found from GameController");
         }
+
+        transitionImage.gameObject.SetActive(false);
         advanceLevelText.gameObject.SetActive(false);
         endGameText.gameObject.SetActive(false);
         goldText.text = "Gold: 0";
@@ -55,14 +59,14 @@ public class GameController : MonoBehaviour
         {
             if (levelTwo)
             {
-                EndGame(2);
+                EndGame();
             }else if (levelThree)
             {
-                EndGame(3);
+                EndGame();
             }
             else
             {
-                EndGame(1);
+                EndGame();
             }
         }
 
@@ -86,12 +90,6 @@ public class GameController : MonoBehaviour
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             Destroy(player);
-            endGameText.gameObject.SetActive(true);
-            if (Input.GetKey("k"))
-            {
-                Scene level = SceneManager.GetActiveScene();
-                SceneManager.LoadScene(level.name);
-            }
         }
         if (advanceToTwo)
         {
@@ -99,6 +97,7 @@ public class GameController : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             Destroy(player);
             advanceLevelText.gameObject.SetActive(true);
+            transitionImage.gameObject.SetActive(true);
             if (Input.GetKey("l"))
             {
                 SceneManager.LoadScene("Level2");
@@ -111,6 +110,7 @@ public class GameController : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             Destroy(player);
             advanceLevelText.gameObject.SetActive(true);
+            transitionImage.gameObject.SetActive(true);
             if (Input.GetKey("l"))
             {
                 SceneManager.LoadScene("Level3");
@@ -119,11 +119,11 @@ public class GameController : MonoBehaviour
 
     }
 
-    void EndGame(int level)
+    void EndGame()
     {
         gameOver = true;
         dataController.SubmitNewPlayerScore(highscore, level);
-        SceneManager.LoadScene("MenuScreen");
+        SceneManager.LoadScene("Persistent");
     }
 
     void AdvanceLevel()

@@ -24,7 +24,8 @@ public class BoundaryDestroy : MonoBehaviour
             {
                 Debug.LogError("Unable to find gamecontroller scripts");
             }
-            controller.AddScore(-6);
+
+          //  controller.AddScore(-1);
             Destroy(other.gameObject);
         }
         
