@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    public GameObject healthBar;
     public GameObject lootGoblin;
     public Vector3 spawnValue;
     public int goblinCount;
@@ -28,6 +29,7 @@ public class GameController : MonoBehaviour
 
     private bool advanceToTwo;
     private bool advanceToThree;
+    private string goldForNextLvl;
 
     // Start is called before the first frame update
     void Start()
@@ -41,14 +43,28 @@ public class GameController : MonoBehaviour
         transitionImage.gameObject.SetActive(false);
         advanceLevelText.gameObject.SetActive(false);
         endGameText.gameObject.SetActive(false);
-        goldText.text = "Gold: 0";
+
+        switch (level)
+        {
+            case 1:
+                goldForNextLvl = "Required for next level: " + 10;
+                break;
+            case 2:
+                goldForNextLvl = "Required for next level: " + 25;
+                break;
+            case 3:
+                goldForNextLvl = "Max level!";
+                break;
+
+        }
+        goldText.text = "Gold: 0" + " | " + goldForNextLvl;
         StartCoroutine(SpawnWaves());
     }
 
     public void AddScore(int points)
     {
         score += points;
-        goldText.text = "Gold: " + score;
+        goldText.text = "Gold: " + score + " | " + goldForNextLvl; 
 
         if(score > highscore)
         {
@@ -124,6 +140,7 @@ public class GameController : MonoBehaviour
         gameOver = true;
         dataController.SubmitNewPlayerScore(highscore, level);
         SceneManager.LoadScene("Persistent");
+
     }
 
     void AdvanceLevel()

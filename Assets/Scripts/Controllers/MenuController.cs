@@ -10,6 +10,7 @@ public class MenuController : MonoBehaviour
     private DataController dataController;
     private int highScore;
     private int levelHighScore;
+    public Text Instructions;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,7 @@ public class MenuController : MonoBehaviour
         {
             Debug.Log("DataController not found!");
         }
+        Instructions.text = "INSTRUCTIONS:" + "\n Q: Throws spear across the map \n E: Sweeps sword across the ground level \n R: Swings sword in the middle of the opposite wall \n Space: Launches meteor from play position";
     }
 
     // Update is called once per frame
