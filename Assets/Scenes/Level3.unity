@@ -558,8 +558,8 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   lootGoblin: {fileID: 185802, guid: c1d92bdd55f8c154c957dcd4f7cfe669, type: 3}
   spawnValue: {x: 5, y: 0, z: -15}
-  goblinCount: 2
-  spawnWait: 3
+  goblinCount: 5
+  spawnWait: 1
   startWait: 1
   goblinSpeed: 0
   goldText: {fileID: 2044871666}
@@ -3913,7 +3913,7 @@ Transform:
   m_GameObject: {fileID: 1142622940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: -0.1, z: 1}
-  m_LocalScale: {x: 300, y: 300, z: 300}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
@@ -5683,7 +5683,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1500, y: 1500}
+  m_SizeDelta: {x: 3000, y: 3000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2048383129
 MonoBehaviour:

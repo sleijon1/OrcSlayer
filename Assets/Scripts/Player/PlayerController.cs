@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public float spearFireRate;
     private float nextFire;
 
+    private bool inMotion;
+
     Animator animator;
     Rigidbody body;
 

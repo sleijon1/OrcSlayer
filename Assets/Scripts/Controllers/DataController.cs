@@ -59,6 +59,11 @@ public class DataController : MonoBehaviour
         {
             playerProgress.highscore = PlayerPrefs.GetInt("highestScore");
         }
+
+        if (PlayerPrefs.HasKey("highestLevel"))
+        {
+            playerProgress.levelHighscore = PlayerPrefs.GetInt("highestLevel");
+        }
     }
 
     // This function could be extended easily to handle any additional data we wanted to store in our PlayerProgress object
@@ -66,6 +71,8 @@ public class DataController : MonoBehaviour
     {
         // Save the value playerProgress.highestScore to PlayerPrefs, with a key of "highestScore"
         PlayerPrefs.SetInt("highestScore", playerProgress.highscore);
+
+        PlayerPrefs.SetInt("highestLevel", playerProgress.levelHighscore);
     }
 
 }

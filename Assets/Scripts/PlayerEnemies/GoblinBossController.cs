@@ -46,13 +46,12 @@ public class GoblinBossController : MonoBehaviour
     {
         health -= damage;
         healthBar.UpdateBar(health, maxHealth);
-        if(health == 0)
+        if(health <= 0)
         {
             health = maxHealth;
             healthBar.UpdateBar(maxHealth, maxHealth);
-            controller.AddScore(5);
             Instantiate(zeroHealthAnimation, transform.position, transform.rotation);
-
+            controller.AddScore(5);
         }
     }
 
