@@ -21,13 +21,17 @@ public class GoblinBossController : MonoBehaviour
     public SimpleHealthBar healthBar;
     private GameController controller;
     public GameObject zeroHealthAnimation;
-    public int rotationSpeed;
- 
+    public int rotationSpeed; 
 
     // SPEAR
     public GameObject spear;
     public Transform spearSpawn;
 
+    // LL for cleaning up thrown halberd's
+    private LinkedList<GameObject> thrownSpears = new LinkedList<GameObject>();
+
+
+    private GameObject lastAnimation;
     Animator anim;
 
     void OnTriggerEnter(Collider other)
@@ -46,16 +50,18 @@ public class GoblinBossController : MonoBehaviour
     {
         health -= damage;
         healthBar.UpdateBar(health, maxHealth);
-        if(health <= 0)
+        Destroy(lastAnimation);
+        if (health <= 0)
         {
             health = maxHealth;
             healthBar.UpdateBar(maxHealth, maxHealth);
-            Instantiate(zeroHealthAnimation, transform.position, transform.rotation);
+            lastAnimation = (GameObject)Instantiate(zeroHealthAnimation, transform.position, transform.rotation);
+            controller.addConsumedObject(lastAnimation);
             controller.AddScore(5);
+            
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         GameObject tmp = GameObject.FindGameObjectWithTag("GameController");
@@ -72,9 +78,18 @@ public class GoblinBossController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(movement);
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if(thrownSpears.Count == 10)
+        {
+            for(int i = 0; i < 5; i++)
+            {
+               LinkedListNode<GameObject> tmp = thrownSpears.First;
+               GameObject tmpGo = tmp.Value;
+               thrownSpears.RemoveFirst();
+               Destroy(tmpGo);
+            }
+        }
         if (Time.time > nextFire)
         {
             StartCoroutine(throwSpear());
@@ -105,7 +120,10 @@ public class GoblinBossController : MonoBehaviour
         anim.SetInteger("moving", 0);
 
         nextFire = Time.time + fireRate;
-        Instantiate(spear, spearSpawn.position, spear.transform.rotation);
+
+        GameObject newSpear = (GameObject)Instantiate(spear, spearSpawn.position, spear.transform.rotation);
+        thrownSpears.AddLast(newSpear);
+
 
         yield return new WaitForSeconds(1);
 

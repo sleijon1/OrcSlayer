@@ -16,15 +16,18 @@ public class GoblinController : MonoBehaviour
 
         if (other.tag == "Meteor")
         {
-            Instantiate(explosion, other.transform.position, other.transform.rotation);
+            GameObject animation = (GameObject)Instantiate(explosion, other.transform.position, other.transform.rotation);
             Destroy(gameObject);
             Destroy(other.gameObject);
+            controller.addConsumedObject(animation);
         }
 
         if (other.tag == "PlayerSword")
         {
-            Instantiate(explosion, other.transform.position, other.transform.rotation);
+            GameObject animation = (GameObject)Instantiate(explosion, other.transform.position, other.transform.rotation);
             Destroy(gameObject);
+            controller.addConsumedObject(other.gameObject);
+            controller.addConsumedObject(animation);
         }
         if (other.tag == "NorthWall")
         {
@@ -39,7 +42,6 @@ public class GoblinController : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         GameObject tmp = GameObject.FindGameObjectWithTag("GameController");
@@ -49,7 +51,6 @@ public class GoblinController : MonoBehaviour
             Debug.LogError("Unable to find gamecontroller scripts");
         }
 
-        //animator = GetComponent<Animator>();
         anim = GetComponent<Animator>();
         controller.AddScore(1);
 
@@ -92,7 +93,6 @@ public class GoblinController : MonoBehaviour
     }
 
 
-    // Update is called once per frame
     void Update()
     {
 

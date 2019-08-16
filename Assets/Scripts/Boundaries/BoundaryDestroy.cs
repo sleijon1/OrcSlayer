@@ -18,14 +18,6 @@ public class BoundaryDestroy : MonoBehaviour
         }
         if (other.tag == "Goblin")
         {
-            GameObject tmp = GameObject.FindGameObjectWithTag("GameController");
-            controller = tmp.GetComponent<GameController>();
-            if (controller == null)
-            {
-                Debug.LogError("Unable to find gamecontroller scripts");
-            }
-
-          //  controller.AddScore(-1);
             Destroy(other.gameObject);
         }
         

@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour
     private bool advanceToThree;
     private string goldForNextLvl;
 
+    private LinkedList<GameObject> consumedObjects = new LinkedList<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +61,21 @@ public class GameController : MonoBehaviour
         }
         goldText.text = "Gold: 0" + " | " + goldForNextLvl;
         StartCoroutine(SpawnWaves());
+    }
+
+    public void addConsumedObject(GameObject go)
+    {
+        consumedObjects.AddLast(go);
+        if(consumedObjects.Count > 8)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                LinkedListNode<GameObject> tmp = consumedObjects.First;
+                consumedObjects.RemoveFirst();
+                GameObject tmpGo = tmp.Value;
+                Destroy(tmpGo);
+            }
+        }
     }
 
     public void AddScore(int points)

@@ -3502,7 +3502,7 @@ MonoBehaviour:
   boundary:
     xMax: 5
     xMin: -5
-  fireRate: 5
+  fireRate: 3
   health: 0
   maxHealth: 0
   healthBar: {fileID: 2024993413}
