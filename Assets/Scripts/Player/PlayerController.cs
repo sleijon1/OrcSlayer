@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public GameObject swordTwo;
     public Transform swordSpawnTwo;
 
+    private bool moving;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey("w") || Input.GetKey("s") || Input.GetKey("d") || Input.GetKey("a"))
         {
+            moving = true;
             animator.SetBool("stopRun", false);
             animator.SetTrigger("startRun");
             animator.ResetTrigger("attackOne");
@@ -73,6 +76,9 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyUp("w") || Input.GetKeyUp("s") || Input.GetKeyUp("d") || Input.GetKeyUp("a"))
         {
+            moving = false;
+            body.velocity = Vector3.zero;
+            body.angularVelocity = Vector3.zero;
             animator.SetBool("stopRun", true);
             animator.ResetTrigger("startRun");
         }
@@ -130,8 +136,6 @@ public class PlayerController : MonoBehaviour
         float moveV = Input.GetAxis("Vertical") * Speed;
 
         Vector3 movement = new Vector3(moveH, 0, moveV);
-
-
         if (movement != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(movement);
@@ -139,7 +143,10 @@ public class PlayerController : MonoBehaviour
            
             
         }
-        body.velocity = movement * Speed;
+        if (moving)
+        {
+            body.velocity = movement * Speed;
+        }
 
     }
 }
